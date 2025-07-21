@@ -7,8 +7,9 @@ import { ProductType } from "@/types/ProductType";
 import { PageProps } from "@/types/ParamType";
 import { useGetProductByIdQuery } from "@/lib/api/productApi";
 import { useParams } from "next/navigation";
-import loading from "@/app/loading";
 import Loading from "@/app/loading";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/lib/features/cartSlice";
 // import { Metadata } from "next";
 
 // export async function generateMetadata(
@@ -57,6 +58,13 @@ export default function ProductPage() {
   const  param  = useParams();
   const id = Number.parseInt(param.id as string);
   const { data: product, error, isLoading } = useGetProductByIdQuery(id);
+  const dispatch = useDispatch();
+  const handleAddToCart = (e: React.MouseEvent) => {
+        e.preventDefault();
+        if (product) {
+          dispatch(addToCart(product));
+        }
+      };
 
    if (isLoading) {
      return <Loading />;
@@ -209,7 +217,10 @@ export default function ProductPage() {
 
               {/* Action Buttons */}
               <div className="flex gap-4 mb-6">
-                <button className="flex-1 bg-indigo-600 flex gap-2 items-center justify-center text-white px-6 py-3 rounded-md hover:bg-indigo-700 transition-colors">
+                <button
+                  onClick={handleAddToCart}
+                  className="flex-1 bg-indigo-600 flex gap-2 items-center justify-center text-white px-6 py-3 rounded-md hover:bg-indigo-700 transition-colors"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

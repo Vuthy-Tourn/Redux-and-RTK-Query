@@ -5,15 +5,17 @@ import ProductCard from "@/components/product/ProductCard";
 import Link from "next/link";
 import { useGetAllProductsQuery } from "@/lib/api/productApi";
 import Loading from "../loading";
+import { ProductType } from "@/types/ProductType";
+
 export default function page() {
   const {
     data = { products: [] },
     isLoading,
     error,
   } = useGetAllProductsQuery();
-if(isLoading){
+  if (isLoading) {
     return <Loading />;
-}
+  }
   return (
     <section className="min-h-screen py-16 px-6">
       {/* <!-- Hero --> */}
@@ -26,10 +28,10 @@ if(isLoading){
           shipping on all orders above $50.
         </p>
         <div className="mt-6">
-          <button className="bg-black text-white px-6 py-3 rounded-xl hover:bg-gray-800">
+          <button className="bg-black text-white px-6 py-3 rounded-xl hover:bg-gray-800 dark:bg-gray-800 dark:hover:bg-gray-700">
             Shop Now
           </button>
-          <button className="bg-black text-white px-6 py-3 rounded-xl hover:bg-gray-800 m-1">
+          <button className="bg-black text-white px-6 py-3 rounded-xl hover:bg-gray-800 dark:bg-gray-800 dark:hover:bg-gray-700 m-1">
             បញ្ជាទិញទំនិញ
           </button>
         </div>
@@ -57,25 +59,20 @@ if(isLoading){
       {/* <!-- Product Grid --> */}
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
         {data.products.map((product) => (
-          <Link
-            href={`/product/${product.id}`}
-            className="no-underline"
+          <ProductCard
+            product={product}
+            id={product.id}
             key={product.id}
-          >
-            <ProductCard
-              id={product.id}
-              key={product.id}
-              title={product.title}
-              description={product.description}
-              price={product.price}
-              thumbnail={product.thumbnail}
-              rating={product.rating}
-              images={product.images}
-              warrantyInformation={product.warrantyInformation}
-              shippingInformation={product.shippingInformation}
-              availabilityStatus={product.availabilityStatus}
-            />
-          </Link>
+            title={product.title}
+            description={product.description}
+            price={product.price}
+            thumbnail={product.thumbnail}
+            rating={product.rating}
+            images={product.images}
+            warrantyInformation={product.warrantyInformation}
+            shippingInformation={product.shippingInformation}
+            availabilityStatus={product.availabilityStatus}
+          />
         ))}
       </div>
     </section>

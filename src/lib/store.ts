@@ -5,6 +5,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { productsApi } from "./api/productApi";
+import cartReducer from "./features/cartSlice";
 
 const persistConfig = {
   key: "root",
@@ -13,7 +14,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-//   cart: cartReducer, // Stores shopping cart items
+  cart: cartReducer, // Stores shopping cart items
 //   auth: authReducer, // Stores user login info
   [productsApi.reducerPath]: productsApi.reducer, // Handles product data from API
 //   [authApi.reducerPath]: authApi.reducer, // Handles login/register API calls

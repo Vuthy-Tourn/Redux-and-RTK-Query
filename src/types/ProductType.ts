@@ -21,4 +21,5 @@ export type ProductType = {
   warrantyInformation: string;
   shippingInformation: string;
   availabilityStatus: string;
+  product: ProductType; // Self-reference for nested product structure
 };

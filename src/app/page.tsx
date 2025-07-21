@@ -1,3 +1,4 @@
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -32,19 +33,19 @@ export default function Home() {
           data-aos="fade-up"
           data-aos-delay="400"
         >
-          <a
-            href="#pricing"
+          <Link
+            href="/product"
             rel="noopener noreferrer"
             className="relative flex items-center justify-center px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white text-lg font-semibold rounded-full shadow-lg transform hover:scale-105 transition-transform duration-200"
           >
             <span className="absolute inset-0 rounded-full bg-purple-600 opacity-50 animate-ping"></span>
             <span className="relative z-10 pr-2">Book Now</span>
-          </a>
+          </Link>
         </div>
       </div>
 
       <div className="absolute sm:bottom-14 bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <a href="#about" className="cursor-pointer">
+        <Link href="#about" className="cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-10 w-10 text-white"
@@ -59,7 +60,7 @@ export default function Home() {
               d="M19 9l-7 7-7-7"
             />
           </svg>
-        </a>
+        </Link>
       </div>
     </section>
   );

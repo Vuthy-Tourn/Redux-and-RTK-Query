@@ -6,6 +6,10 @@ import { navLinks } from "./menu";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import ThemeToggleButton from "../ui/theme-toggle-button";
+import { Button } from "../ui/button";
+import { ShoppingCart } from "lucide-react";
+import { useAppSelector } from "@/lib/hook";
+import { Badge } from "../ui/badge";
 // const Navbar = styled.nav`
 //   background-color: #333;
 //   padding: 10px;
@@ -30,6 +34,7 @@ import ThemeToggleButton from "../ui/theme-toggle-button";
 
 export default function NavbarComponent() {
   const pathname = usePathname();
+   const { itemCount } = useAppSelector((state) => state.cart);
   return (
     <nav className="bg-white border-gray-200 py-2.5 dark:bg-gray-900">
       <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
@@ -54,6 +59,20 @@ export default function NavbarComponent() {
             Login
           </Link>
           <ThemeToggleButton />
+          {/* Cart Button with Badge */}
+          <Link href="/cart">
+            <Button variant="ghost" size="icon" className="relative">
+              <ShoppingCart className="h-5 w-5 text-gray-700 group-hover:text-black transition dark:text-white" />
+              {itemCount > 0 && (
+                <Badge
+                  variant="destructive"
+                  className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] font-semibold w-5 h-5 flex items-center justify-center rounded-full shadow-sm"
+                >
+                  {itemCount}
+                </Badge>
+              )}
+            </Button>
+          </Link>
           <button
             data-collapse-toggle="mobile-menu-2"
             type="button"
