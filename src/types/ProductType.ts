@@ -4,7 +4,7 @@ export type ProductType = {
   title: string;
   description: string; // Short product description (for cards/listings)
   // imageUrl: string;
-  thumbnail: string; // URL to product image
+  // thumbnail: string; // URL to product image
   detailedDescription?: string; // Longer, detailed description for product page
   price: number; // Current selling price
   originalPrice?: number; // Original price (if on sale)
@@ -22,4 +22,5 @@ export type ProductType = {
   shippingInformation: string;
   availabilityStatus: string;
   product: ProductType; // Self-reference for nested product structure
+
 };

@@ -14,20 +14,20 @@ export default function ProductCard({
   title,
   description,
   price,
-  thumbnail,
-  product
+  images,
+  product,
 }: ProductType) {
-    const dispatch = useAppDispatch();
-    //  const { toast } = useToast();
-  
-    const handleAddToCart = (e: React.MouseEvent) => {
-      e.preventDefault();
-      dispatch(addToCart(product));
-      //  toast({
-      //    title: "Added to cart",
-      //    description: `${product.title} has been added to your cart.`,
-      //  });
-    };
+  const dispatch = useAppDispatch();
+  //  const { toast } = useToast();
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    dispatch(addToCart(product));
+    //  toast({
+    //    title: "Added to cart",
+    //    description: `${product.title} has been added to your cart.`,
+    //  });
+  };
   return (
     <div
       key={id}
@@ -36,7 +36,7 @@ export default function ProductCard({
       <Link href={`/product/${id}`}>
         <div className="relative">
           <Image
-            src={thumbnail}
+            src={images[0]}
             alt={title}
             className="w-full h-60 object-cover group-hover:scale-105 transition-transform"
             unoptimized
@@ -48,7 +48,9 @@ export default function ProductCard({
           </span>
         </div>
         <div className="p-5">
-          <h3 className="text-lg font-bold text-gray-900 mb-1 dark:text-white">{title}</h3>
+          <h3 className="text-lg font-bold text-gray-900 mb-1 dark:text-white">
+            {title}
+          </h3>
           <p className="text-sm text-gray-500 mb-2 line-clamp-3">
             {description}
           </p>

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { TableRow, TableCell } from "@/components/ui/table";
 import { Input } from "../ui/input";
+import { useEffect } from "react";
 
 interface CartItemProps {
   item: CartItemType;
@@ -23,6 +24,10 @@ export default function CartItem({ item }: CartItemProps) {
   const handleRemove = () => {
     dispatch(removeFromCart(item.id));
   };
+
+  useEffect(() => {
+  console.log(item);
+  })
 
   return (
     <TableRow key={item.id}>

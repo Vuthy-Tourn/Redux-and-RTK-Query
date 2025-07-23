@@ -9,7 +9,7 @@ import { ProductType } from "@/types/ProductType";
 
 export default function page() {
   const {
-    data = { products: [] },
+    data:  products = [] ,
     isLoading,
     error,
   } = useGetAllProductsQuery();
@@ -58,7 +58,7 @@ export default function page() {
 
       {/* <!-- Product Grid --> */}
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
-        {data.products.map((product) => (
+        {products?.map((product : ProductType) => (
           <ProductCard
             product={product}
             id={product.id}
@@ -66,9 +66,8 @@ export default function page() {
             title={product.title}
             description={product.description}
             price={product.price}
-            thumbnail={product.thumbnail}
-            rating={product.rating}
             images={product.images}
+            rating={product.rating}
             warrantyInformation={product.warrantyInformation}
             shippingInformation={product.shippingInformation}
             availabilityStatus={product.availabilityStatus}

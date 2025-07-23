@@ -30,7 +30,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const productsApi = createApi({
   reducerPath: "productsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_BASE_URL }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: process.env.NEXT_PUBLIC_PLATZI_BASE_URL,
+  }),
 
   tagTypes: ["Product", "Category"],
   endpoints: (builder) => ({
@@ -38,9 +40,41 @@ export const productsApi = createApi({
       query: (id) => `products/${id}`,
       providesTags: (result, error, id) => [{ type: "Product", id }],
     }),
-    getAllProducts: builder.query<{ products: ProductType[] }, void>({
+    getAllProducts: builder.query<ProductType[], void>({
       query: () => "products",
-      providesTags: ["Product"],
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: "Product" as const, id })),
+              { type: "Product" as const, id: "LIST" },
+            ]
+          : [{ type: "Product" as const, id: "LIST" }],
+    }),
+    createProduct: builder.mutation<ProductType, Partial<ProductType>>({
+      query: (newProduct) => ({
+        url: "products",
+        method: "POST",
+        body: newProduct,
+      }),
+      invalidatesTags: ["Product"],
+    }),
+    updateProduct: builder.mutation<
+      ProductType,
+      { id: number; data: Partial<ProductType> }
+    >({
+      query: ({ id, data }) => ({
+        url: `products/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: (result, error, { id }) => [{ type: "Product", id }],
+    }),
+    deleteProduct: builder.mutation<{ success: boolean }, number>({
+      query: (id) => ({
+        url: `products/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (result, error, id) => [{ type: "Product", id }],
     }),
   }),
 });
@@ -48,5 +82,8 @@ export const productsApi = createApi({
 
 export const {
   useGetAllProductsQuery,
-  useGetProductByIdQuery
+  useGetProductByIdQuery,
+  useCreateProductMutation,
+  useUpdateProductMutation,
+  useDeleteProductMutation
 } = productsApi;
