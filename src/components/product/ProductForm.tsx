@@ -295,7 +295,8 @@ const handleSubmit = async (values: ProductFormValues) => {
                   className="w-full h-24 object-cover rounded-md"
                   crossOrigin="anonymous"
                   unoptimized
-                  fill
+                  width={96}
+                  height={96}
                 />
               </div>
             ))}
@@ -310,6 +311,7 @@ const handleSubmit = async (values: ProductFormValues) => {
                   width={96}
                   height={96}
                   unoptimized
+                  crossOrigin="anonymous"
                 />
                 <Button
                   type="button"
