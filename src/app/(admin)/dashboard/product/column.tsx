@@ -36,6 +36,7 @@ export const columns: ColumnDef<ProductType>[] = [
     cell: ({ row }) => {
       const thumbnailUrl = row.getValue("images") as string[];
       const image = thumbnailUrl?.[0];
+      
       return (
         <Image
           src={image}
@@ -44,6 +45,7 @@ export const columns: ColumnDef<ProductType>[] = [
           width={50}
           height={50}
           unoptimized
+          crossOrigin="anonymous"
         />
       );
     },

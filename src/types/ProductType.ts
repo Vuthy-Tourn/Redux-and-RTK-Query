@@ -22,5 +22,5 @@ export type ProductType = {
   shippingInformation: string;
   availabilityStatus: string;
   product: ProductType; // Self-reference for nested product structure
-
+  slug: string; // Add this
 };

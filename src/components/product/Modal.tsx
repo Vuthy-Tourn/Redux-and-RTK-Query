@@ -1,4 +1,3 @@
-// components/crud-modals.tsx
 "use client";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { DialogHeader } from "@/components/ui/dialog";
@@ -13,8 +12,8 @@ import {
 } from "@/lib/api/productApi";
 import { useState } from "react";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import { Loader2 } from "lucide-react";
 
-// components/crud-modals.tsx
 export function CrudModals() {
   const {
     selectedItem,
@@ -30,39 +29,31 @@ export function CrudModals() {
   const [updateProduct] = useUpdateProductMutation();
   const [deleteProduct] = useDeleteProductMutation();
   const [isLoading, setIsLoading] = useState(false);
-  const handleCreate = async (values: ProductFormValues) => {
-    setIsLoading(true);
-    try {
-      // Remove any undefined values before submission
-      const submissionData = Object.fromEntries(
-        Object.entries(values).filter(([_, v]) => v !== undefined)
-      );
 
-      await createProduct(submissionData).unwrap();
-      toast.success("Product created successfully");
-      setIsCreateOpen(false);
-    } catch (error) {
-      toast.error("Failed to create product");
-      console.error("Create error:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+const handleCreate = async (values: ProductFormValues) => {
+  setIsLoading(true);
+  try {
+    // The values.images now contains the actual URLs from upload
+    await createProduct(values).unwrap();
+    toast.success("Product created successfully");
+    setIsCreateOpen(false);
+  } catch (error) {
+    toast.error("Failed to create product");
+    console.error("Creation error:", error);
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   const handleUpdate = async (values: ProductFormValues) => {
     if (!selectedItem?.id) return;
 
     setIsLoading(true);
     try {
-      // Prepare update data - only send changed fields if desired
-      const updateData = {
+      await updateProduct({
         id: selectedItem.id,
-        data: {
-          ...values,
-        },
-      };
-
-      await updateProduct(updateData).unwrap();
+        data: values,
+      }).unwrap();
       toast.success("Product updated successfully");
       setIsUpdateOpen(false);
     } catch (error) {
@@ -74,6 +65,8 @@ export function CrudModals() {
   };
 
   const handleDelete = async () => {
+    if (!selectedItem?.id) return;
+
     setIsLoading(true);
     try {
       await deleteProduct(selectedItem.id).unwrap();
@@ -81,6 +74,7 @@ export function CrudModals() {
       setIsDeleteOpen(false);
     } catch (error) {
       toast.error("Failed to delete product");
+      console.error("Delete error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -90,9 +84,11 @@ export function CrudModals() {
     <>
       {/* Create Modal */}
       <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
-        <DialogContent className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <DialogContent className="sm:max-w-[625px]">
           <DialogHeader>
-            <DialogTitle>Create New Product</DialogTitle>
+            <DialogTitle className="text-xl font-bold">
+              Create New Product
+            </DialogTitle>
           </DialogHeader>
           <ProductForm onSubmit={handleCreate} isLoading={isLoading} />
         </DialogContent>
@@ -100,9 +96,11 @@ export function CrudModals() {
 
       {/* Update Modal */}
       <Dialog open={isUpdateOpen} onOpenChange={setIsUpdateOpen}>
-        <DialogContent className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <DialogContent className="sm:max-w-[625px]">
           <DialogHeader>
-            <DialogTitle>Update Product</DialogTitle>
+            <DialogTitle className="text-xl font-bold">
+              Update Product
+            </DialogTitle>
           </DialogHeader>
           <ProductForm
             defaultValues={selectedItem}
@@ -114,13 +112,18 @@ export function CrudModals() {
 
       {/* Delete Modal */}
       <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
-        <DialogContent className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Confirm Deletion</DialogTitle>
+            <DialogTitle className="text-xl font-bold">
+              Confirm Deletion
+            </DialogTitle>
           </DialogHeader>
-          <div className="space-y-4">
-            <p>Are you sure you want to delete this product?</p>
-            <div className="flex justify-end space-x-2">
+          <div className="space-y-4 py-4">
+            <p className="text-gray-700">
+              Are you sure you want to delete "{selectedItem?.title}"? This
+              action cannot be undone.
+            </p>
+            <div className="flex justify-end space-x-3">
               <Button
                 variant="outline"
                 onClick={() => setIsDeleteOpen(false)}
@@ -133,7 +136,14 @@ export function CrudModals() {
                 onClick={handleDelete}
                 disabled={isLoading}
               >
-                {isLoading ? "Deleting..." : "Delete"}
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Deleting...
+                  </>
+                ) : (
+                  "Delete"
+                )}
               </Button>
             </div>
           </div>

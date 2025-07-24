@@ -1,5 +1,6 @@
 import { ProductType } from "@/types/ProductType";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { get } from "http";
 
 // export interface Product {
 //   id: number;
@@ -27,6 +28,12 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 //   limit?: number;
 //   offset?: number;
 // }
+
+export interface CategoryType {
+  id: number;
+  name: string;
+  image: string;
+}
 
 export const productsApi = createApi({
   reducerPath: "productsApi",
@@ -76,6 +83,29 @@ export const productsApi = createApi({
       }),
       invalidatesTags: (result, error, id) => [{ type: "Product", id }],
     }),
+    uploadFile: builder.mutation<{ location: string }, FormData>({
+      query: (formData) => ({
+        url: "files/upload",
+        method: "POST",
+        body: formData,
+      }),
+      transformResponse: (response: any) => {
+        // Handle both possible response formats
+        return {
+          location: response.location || response.url,
+        };
+      },
+    }),
+    getAllCategories: builder.query<CategoryType[], void>({
+      query: () => "categories",
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: "Category" as const, id })),
+              { type: "Category", id: "LIST" },
+            ]
+          : [{ type: "Category", id: "LIST" }],
+    }),
   }),
 });
 
@@ -85,5 +115,7 @@ export const {
   useGetProductByIdQuery,
   useCreateProductMutation,
   useUpdateProductMutation,
-  useDeleteProductMutation
+  useDeleteProductMutation,
+  useGetAllCategoriesQuery,
+  useUploadFileMutation
 } = productsApi;
