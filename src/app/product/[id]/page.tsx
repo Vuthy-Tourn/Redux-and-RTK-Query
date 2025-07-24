@@ -120,11 +120,10 @@ export default function ProductPage() {
               <p className="text-gray-600 dark:text-gray-400 mb-1">
                 {product.description}
               </p>
-              <p className="text-gray-500 text-sm mb-4">SKU: {product.sku}</p>
 
               <div className="mb-4">
                 <span className="text-2xl font-bold text-gray-900 dark:text-white ">
-                  ${product.price.toFixed(2)}
+                ${product.price.toFixed(2)}
                 </span>
                 {product.originalPrice && (
                   <span className="text-gray-500 line-through ml-2">
@@ -142,7 +141,7 @@ export default function ProductPage() {
               </div>
 
               {/* Rating */}
-              <div className="flex items-center mb-4">
+              {/* <div className="flex items-center mb-4">
                 <div className="flex">
                   {[...Array(5)].map((_, i) => (
                     <svg
@@ -165,9 +164,9 @@ export default function ProductPage() {
                   ))}
                 </div>
                 <span className="ml-2 text-gray-600 dark:text-gray-400 text-sm">
-                  {product.rating.toFixed(1)} ({product.reviewCount} reviews)
+                  {product.rating?.toFixed(1)} ({product.reviewCount} reviews)
                 </span>
-              </div>
+              </div> */}
 
               {/* Color Selection */}
               {product.colors && product.colors.length > 0 && (
@@ -252,75 +251,6 @@ export default function ProductPage() {
                   Wishlist
                 </button>
               </div>
-
-              {/* Product Description */}
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-2">Description</h3>
-                <ul className="list-disc">
-                  <li className="text-gray-700 dark:text-gray-400 mb-2">
-                    {product.warrantyInformation}
-                  </li>
-                  <li className="text-gray-700 dark:text-gray-400 mb-2">
-                    <strong>Brand:</strong> {product.shippingInformation}
-                  </li>
-                  <li className="text-gray-700 dark:text-gray-400 mb-2">
-                    <strong>Category:</strong>{" "}
-                    <span className="text-green-500">
-                      {product.availabilityStatus}
-                    </span>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Key Features */}
-              {/* <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-2">Key Features</h3>
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                  {product.features.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        className="size-5 text-green-500 mt-0.5 mr-2 flex-shrink-0"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                      <span className="text-gray-700">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div> */}
-
-              {/* Specifications */}
-              {product.specifications && (
-                <div className="mb-6">
-                  <h3 className="text-lg font-semibold mb-2">Specifications</h3>
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <table className="w-full">
-                      <tbody>
-                        {Object.entries(product.specifications).map(
-                          ([key, value]) => (
-                            <tr
-                              key={key}
-                              className="border-b border-gray-200 last:border-0"
-                            >
-                              <td className="py-2 font-medium text-gray-700 capitalize">
-                                {key.replace(/([A-Z])/g, " $1").trim()}:
-                              </td>
-                              <td className="py-2 text-gray-600">{value}</td>
-                            </tr>
-                          )
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </div>
