@@ -11,9 +11,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useModalContext } from "./ProductContext";
+import { ProductType } from "@/types/ProductType";
+import { Row } from "@tanstack/react-table";
 
-export function DataTableActions({ row }: { row: any }) {
-  const { setSelectedItem, setIsCreateOpen, setIsUpdateOpen, setIsDeleteOpen } =
+export function DataTableActions({ row }: { row: unknown }) {
+  const { setSelectedItem, setIsUpdateOpen, setIsDeleteOpen } =
     useModalContext();
 
   return (
@@ -32,7 +34,7 @@ export function DataTableActions({ row }: { row: any }) {
         </DropdownMenuItem> */}
         <DropdownMenuItem
           onClick={() => {
-            setSelectedItem(row.original);
+            setSelectedItem((row as Row<ProductType>).original);
             setIsUpdateOpen(true);
           }}
         >
@@ -40,7 +42,7 @@ export function DataTableActions({ row }: { row: any }) {
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
-            setSelectedItem(row.original);
+              setSelectedItem((row as Row<ProductType>).original);
             setIsDeleteOpen(true);
           }}
           className="text-red-600"

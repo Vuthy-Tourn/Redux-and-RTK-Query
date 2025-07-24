@@ -1,6 +1,5 @@
 import { ProductType } from "@/types/ProductType";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { get } from "http";
 
 // export interface Product {
 //   id: number;
@@ -89,10 +88,10 @@ export const productsApi = createApi({
         method: "POST",
         body: formData,
       }),
-      transformResponse: (response: any) => {
+      transformResponse: (response: {location:string}) => {
         // Handle both possible response formats
         return {
-          location: response.location || response.url,
+          location: response.location,
         };
       },
     }),

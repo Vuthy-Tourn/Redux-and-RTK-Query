@@ -5,10 +5,6 @@ import React from "react";
 import { useAppDispatch } from "@/lib/hook";
 import { addToCart } from "@/lib/features/cartSlice";
 
-interface ProductCardProps {
-  product: ProductType;
-}
-
 export default function ProductCard({
   id,
   title,

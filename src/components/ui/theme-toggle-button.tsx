@@ -63,7 +63,7 @@ export default function ThemeToggleButton({
     }
 
     document.startViewTransition(switchTheme)
-  }, [theme, setTheme])
+  }, [theme, setTheme,start, variant, url, updateStyles])
 
   return (
     <Button

@@ -103,7 +103,7 @@ const handleCreate = async (values: ProductFormValues) => {
             </DialogTitle>
           </DialogHeader>
           <ProductForm
-            defaultValues={selectedItem}
+            defaultValues={selectedItem ?? undefined}
             onSubmit={handleUpdate}
             isLoading={isLoading}
           />
@@ -120,8 +120,8 @@ const handleCreate = async (values: ProductFormValues) => {
           </DialogHeader>
           <div className="space-y-4 py-4">
             <p className="text-gray-700">
-              Are you sure you want to delete "{selectedItem?.title}"? This
-              action cannot be undone.
+              Are you sure you want to delete &quot;{selectedItem?.title}&quot;?
+              This action cannot be undone.
             </p>
             <div className="flex justify-end space-x-3">
               <Button

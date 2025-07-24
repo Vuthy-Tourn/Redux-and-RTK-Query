@@ -2,16 +2,14 @@
 import React from "react";
 import ProductCard from "@/components/product/ProductCard";
 // import { products } from "../../data/product";
-import Link from "next/link";
 import { useGetAllProductsQuery } from "@/lib/api/productApi";
 import Loading from "../loading";
 import { ProductType } from "@/types/ProductType";
 
-export default function page() {
+export default function ProductPage() {
   const {
     data:  products = [] ,
     isLoading,
-    error,
   } = useGetAllProductsQuery();
   if (isLoading) {
     return <Loading />;
@@ -71,6 +69,7 @@ export default function page() {
             warrantyInformation={product.warrantyInformation}
             shippingInformation={product.shippingInformation}
             availabilityStatus={product.availabilityStatus}
+            slug="product.slug"
           />
         ))}
       </div>

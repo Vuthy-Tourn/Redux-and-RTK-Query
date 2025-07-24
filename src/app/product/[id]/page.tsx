@@ -1,10 +1,7 @@
 'use client'
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import Image from "next/image";
 // import { products } from "@/data/product";
-import { ProductType } from "@/types/ProductType";
-import { PageProps } from "@/types/ParamType";
 import { useGetProductByIdQuery } from "@/lib/api/productApi";
 import { useParams } from "next/navigation";
 import Loading from "@/app/loading";
@@ -57,7 +54,7 @@ import { addToCart } from "@/lib/features/cartSlice";
 export default function ProductPage() {
   const  param  = useParams();
   const id = Number.parseInt(param.id as string);
-  const { data: product, error, isLoading } = useGetProductByIdQuery(id);
+  const { data: product, isLoading } = useGetProductByIdQuery(id);
   const dispatch = useDispatch();
   const handleAddToCart = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -90,7 +87,7 @@ export default function ProductPage() {
           <div className="w-full md:w-1/2 px-4 mb-8">
             <div className="p-4 rounded-lg shadow-md">
               <Image
-                src={product.thumbnail}
+                src={product.images[0]}
                 alt={product.title}
                 width={800}
                 height={600}

@@ -7,7 +7,7 @@ import { ModalProvider } from "@/components/product/ProductContext";
 import { CrudModals } from "@/components/product/Modal";
 
 export default function DemoPage() {
-  const { data, isLoading, isError } = useGetAllProductsQuery();
+  const { data } = useGetAllProductsQuery();
 
   return (
     <ModalProvider>

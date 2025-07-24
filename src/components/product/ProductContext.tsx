@@ -1,10 +1,11 @@
 // components/modal-context.tsx
 "use client";
+import { ProductType } from "@/types/ProductType";
 import { createContext, useContext, useState } from "react";
 
 type ModalContextType = {
-  selectedItem: any;
-  setSelectedItem: (item: any) => void;
+  selectedItem: ProductType | null;
+  setSelectedItem: (item: ProductType | null) => void;
   isCreateOpen: boolean;
   setIsCreateOpen: (open: boolean) => void;
   isUpdateOpen: boolean;
@@ -16,7 +17,7 @@ type ModalContextType = {
 const ModalContext = createContext<ModalContextType | null>(null);
 
 export function ModalProvider({ children }: { children: React.ReactNode }) {
-  const [selectedItem, setSelectedItem] = useState(null);
+ const [selectedItem, setSelectedItem] = useState<ProductType | null>(null);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isUpdateOpen, setIsUpdateOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);

@@ -3,13 +3,12 @@ import Link from "next/link";
 export default function Home() {
   return (
     <section className="w-full flex items-center justify-center min-h-screen overflow-hidden bg-gradient-to-b from-[#121212] to-purple-800">
-
       <div className="relative z-10 container mx-auto px-4 text-center text-white">
         <h1
           className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
           style={{ lineHeight: 1.2 }}
         >
-          Catching Life's{" "}
+          Catching Life&lsquo;s{" "}
           <span className="relative whitespace-nowrap text-purple-400 dark:text-purple-400">
             <svg
               aria-hidden="true"
@@ -24,8 +23,8 @@ export default function Home() {
           Stories
         </h1>
         <p className="mx-auto mb-8 max-w-2xl text-lg">
-          Learning how to use RTK Query with Next.js to build a
-          full-stack application with a modern, responsive design.
+          Learning how to use RTK Query with Next.js to build a full-stack
+          application with a modern, responsive design.
         </p>
 
         <div

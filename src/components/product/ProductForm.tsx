@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useEffect, useState } from "react";
-import { Loader2, Plus, X, ChevronDown } from "lucide-react";
+import { useState } from "react";
+import { Loader2, Plus, X } from "lucide-react";
 import {
   FormControl,
   FormField,
@@ -25,7 +25,7 @@ import {
   useGetAllCategoriesQuery,
   useUploadFileMutation,
 } from "@/lib/api/productApi";
-import { toast } from "sonner";
+import Image from "next/image";
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -289,11 +289,13 @@ const handleSubmit = async (values: ProductFormValues) => {
             {/* Existing images */}
             {form.watch("images")?.map((url, index) => (
               <div key={`existing-${index}`} className="relative group">
-                <img
+                <Image
                   src={url}
                   alt={`Product image ${index}`}
                   className="w-full h-24 object-cover rounded-md"
                   crossOrigin="anonymous"
+                  unoptimized
+                  fill
                 />
               </div>
             ))}
@@ -301,10 +303,13 @@ const handleSubmit = async (values: ProductFormValues) => {
             {/* New upload previews */}
             {files.map((file, index) => (
               <div key={`new-${index}`} className="relative group">
-                <img
+                <Image
                   src={file.preview}
                   alt={`Preview ${index}`}
                   className="w-full h-24 object-cover rounded-md border-2 border-blue-300"
+                  width={96}
+                  height={96}
+                  unoptimized
                 />
                 <Button
                   type="button"
