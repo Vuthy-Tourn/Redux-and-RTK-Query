@@ -6,6 +6,8 @@ import NavbarWrapper from "@/components/header/NavbarWrapper";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Suspense } from "react";
 import Loading from "./loading";
+import Script from "next/script";
+import { Analytics } from "./analytics";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,13 +31,31 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Google Analytics Script */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+          `}
+        </Script>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <NavbarWrapper />
-            <Suspense fallback={<Loading />}>{children}</Suspense>
+            <Suspense fallback={<Loading />}>
+              <Analytics  />
+              {children}
+            </Suspense>
           </ThemeProvider>
         </Providers>
       </body>

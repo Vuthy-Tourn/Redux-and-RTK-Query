@@ -39,3 +39,8 @@ Visit http://localhost:3000 to view your project in the browser.
 | ------------------ | -------- | -------------------------------------------------------- |
 | Darkmode Theme     | `/`      | using `skiper/ui` for darkmode theme                     |
 
+### 📊 Google Analytics
+| Lesson             | Folder   | Description                                              |
+| ------------------ | -------- | -------------------------------------------------------- |
+| Tracking     | `/layout`      | using Google Analytics for tracking users                |
+

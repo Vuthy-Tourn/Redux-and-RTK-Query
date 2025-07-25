@@ -3,7 +3,7 @@ import { Calendar, Home, Search, Settings, Table } from "lucide-react";
 export const items = [
   {
     title: "Home",
-    url: "#",
+    url: "/dashboard",
     icon: Home,
   },
   {
