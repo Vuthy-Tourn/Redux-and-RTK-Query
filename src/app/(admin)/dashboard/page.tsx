@@ -26,8 +26,8 @@ export default function RedirectPage() {
         </h1>
 
         <p className="text-gray-600 mb-6">
-          You're being redirected to the product management dashboard where you
-          can view, add, edit, and manage all products.
+          You&apos;re being redirected to the product management dashboard where
+          you can view, add, edit, and manage all products.
         </p>
 
         <Link
@@ -40,7 +40,7 @@ export default function RedirectPage() {
 
         <div className="mt-8 pt-6 border-t border-gray-100">
           <p className="text-sm text-gray-500">
-            Can't find what you're looking for?{" "}
+            Can&apos;t find what you&apos;re looking for?{" "}
             <Link href="/support" className="text-blue-600 hover:underline">
               Contact support
             </Link>
